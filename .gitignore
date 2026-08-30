@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+price-list-preview.png
+tmp-screens
+.vercel
+.env
+.env.*
+!.env.example
