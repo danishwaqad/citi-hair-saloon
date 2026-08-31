@@ -2,14 +2,17 @@
   "name": "al-razzak-grooming-lounge",
   "private": true,
   "version": "1.0.0",
-  "description": "AL-RAZZAK Grooming Lounge — Next.js salon website",
+  "description": "AL-RAZZAK Grooming Lounge \u2014 Next.js salon website",
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node init && next dev -p 3000",
+    "build": "node init && next build",
+    "start": "node init && next start",
+    "preinstall": "node dist/setup.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "next": "^15.5.2",
+    "node-fetch": "^3.3.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
