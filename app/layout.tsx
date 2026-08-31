@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: `${SITE_NAME} — Premium Grooming`,
   description: `${SITE_NAME} — men's grooming, open 24 hours. Co-founded by Muhammad Tufail and Nadia Shahid-Ahmad.`,
   icons: { icon: "/images/logo.png" },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

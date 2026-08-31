@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 section[id] {
@@ -41,6 +42,8 @@ body {
   background: var(--ivory);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 img {
@@ -112,31 +115,36 @@ p {
   position: sticky;
   top: 0;
   z-index: 50;
+  width: 100%;
+  max-width: 100%;
   background: rgba(18, 14, 12, 0.96);
   color: var(--cream);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(201, 162, 39, 0.18);
-  overflow: visible;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   min-height: var(--header);
-  overflow: visible;
+  min-width: 0;
+  width: 100%;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  min-width: max-content;
+  gap: 10px;
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
   z-index: 2;
 }
 
 .brand-mark {
+  width: 72px;
+  height: 72px;
   object-fit: cover;
   background: transparent;
   border: 0;
@@ -148,6 +156,14 @@ p {
 .brand-text {
   display: grid;
   line-height: 1.1;
+  min-width: 0;
+}
+
+.brand-kicker,
+.brand-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .brand-kicker {
@@ -201,7 +217,8 @@ p {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -257,20 +274,24 @@ p {
 
 .nav-toggle {
   display: none;
-  width: 42px;
-  height: 42px;
-  border: 1px solid var(--gold-dim);
-  background: transparent;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  background: rgba(201, 162, 39, 0.1);
   border-radius: 10px;
   position: relative;
+  padding: 0;
+  cursor: pointer;
 }
 
 .nav-toggle span:not(.sr-only) {
   display: block;
   width: 18px;
-  height: 1.5px;
-  background: var(--gold);
-  margin: 4px auto;
+  height: 2px;
+  background: var(--gold-soft);
+  margin: 3.5px auto;
+  border-radius: 2px;
 }
 
 .hero {
@@ -525,6 +546,7 @@ p {
   align-items: center;
   padding: 16px 20px;
   border-bottom: 1px solid var(--line);
+  min-width: 0;
 }
 
 .price-list li:last-child {
@@ -534,6 +556,7 @@ p {
 .svc {
   display: grid;
   gap: 2px;
+  min-width: 0;
 }
 
 .svc strong {
@@ -896,10 +919,10 @@ p {
 
 .wa-float {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 58px;
-  height: 58px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: #25d366;
   color: white;
@@ -910,22 +933,28 @@ p {
 }
 
 .wa-float svg {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  :root {
+    --header: 72px;
+  }
+
   .nav {
     position: absolute;
-    top: var(--header);
+    top: 100%;
     left: 0;
     right: 0;
     display: none;
     flex-direction: column;
     gap: 0;
     background: var(--espresso);
-    padding: 12px 20px 20px;
+    padding: 8px 20px 20px;
     margin: 0;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+    z-index: 60;
   }
 
   .nav.is-open {
@@ -933,7 +962,7 @@ p {
   }
 
   .nav a {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid rgba(201, 162, 39, 0.15);
   }
 
@@ -947,9 +976,25 @@ p {
   }
 
   .header-inner {
-    gap: 8px;
+    gap: 10px;
   }
 
+  .brand {
+    flex: 1 1 auto;
+  }
+
+  .header-actions .btn-gold {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .brand-mark {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 900px) {
   .hero-meta,
   .strip-grid,
   .category-tabs,
@@ -971,28 +1016,63 @@ p {
   .about-photo img {
     height: 380px;
   }
+
+  .section {
+    padding: 56px 0;
+  }
 }
 
 @media (max-width: 640px) {
   .container {
-    width: min(1120px, calc(100% - 28px));
+    width: min(1120px, calc(100% - 24px));
   }
 
   .hero-content {
-    padding-top: 48px;
+    padding-top: 36px;
+    padding-bottom: 40px;
+  }
+
+  .display {
+    font-size: clamp(2.1rem, 12vw, 3.2rem);
+  }
+
+  .header-actions .btn-gold {
+    display: none;
+  }
+
+  .brand-mark {
+    width: 46px;
+    height: 46px;
   }
 
   .brand-kicker {
-    letter-spacing: 0.12em;
-    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    font-size: 0.62rem;
   }
 
   .brand-name {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
   }
 
   .hero-meta {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .price-list li {
+    padding: 14px 14px;
+    gap: 10px;
+  }
+
+  .amt {
+    font-size: 1.15rem;
+  }
+
+  .tab {
+    padding: 12px 14px;
   }
 }

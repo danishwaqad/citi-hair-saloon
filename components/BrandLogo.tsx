@@ -18,14 +18,7 @@ export default function BrandLogo({ size = 78 }: { size?: number }) {
         }
       }}
     >
-      <img
-        className="brand-mark"
-        src="/images/logo.png"
-        alt=""
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-      />
+      <img className="brand-mark" src="/images/logo.png" alt="" width={size} height={size} />
       <span className="brand-text">
         <span className="brand-kicker">AL-RAZZAK</span>
         <span className="brand-name">Grooming Lounge</span>
