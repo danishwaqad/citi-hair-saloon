@@ -17,7 +17,7 @@
   --serif: "Cormorant Garamond", "Times New Roman", serif;
   --naskh: "Noto Naskh Arabic", "Noto Nastaliq Urdu", serif;
   --nastaliq: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
-  --header: 84px;
+  --header: 96px;
 }
 
 *,
@@ -28,6 +28,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--header) + 8px);
 }
 
 body {
@@ -108,17 +112,19 @@ p {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(18, 14, 12, 0.92);
+  background: rgba(18, 14, 12, 0.96);
   color: var(--cream);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+  overflow: visible;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 20px;
   min-height: var(--header);
+  overflow: visible;
 }
 
 .brand {
@@ -126,12 +132,17 @@ p {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  min-width: max-content;
+  z-index: 2;
 }
 
 .brand-mark {
-  width: 46px;
-  height: 46px;
-  color: var(--gold);
+  object-fit: cover;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px rgba(228, 204, 122, 0.45);
 }
 
 .brand-text {
@@ -153,9 +164,10 @@ p {
 
 .nav {
   display: flex;
-  gap: 22px;
+  flex-wrap: wrap;
+  gap: 18px;
   margin-inline-start: auto;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -177,8 +189,13 @@ p {
 }
 
 .nav a:hover::after,
-.nav a:focus-visible::after {
+.nav a:focus-visible::after,
+.nav a.is-active::after {
   width: 100%;
+}
+
+.nav a.is-active {
+  color: var(--gold-soft);
 }
 
 .header-actions {
@@ -425,6 +442,34 @@ p {
   color: var(--muted);
 }
 
+.section-copy-ur {
+  margin-top: 10px;
+  color: var(--burgundy);
+}
+
+.vision-btn {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.founder-ur {
+  margin-top: 14px;
+  color: var(--burgundy) !important;
+}
+
+#about .section-head {
+  max-width: 920px;
+}
+
 .section-dark .section-copy {
   color: rgba(246, 239, 228, 0.72);
 }
@@ -602,12 +647,70 @@ p {
   margin-bottom: 8px;
 }
 
-.about-grid,
+.about-cta-row,
 .visit-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
   align-items: center;
+}
+
+.vision {
+  margin: 0 0 36px;
+  padding: 28px 32px;
+  border-radius: 22px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+}
+
+.vision .kicker {
+  color: var(--gold);
+}
+
+.vision > p:first-of-type {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  margin-top: 8px;
+}
+
+.vision-ur {
+  margin-top: 10px;
+  color: var(--gold-soft);
+}
+
+.founders {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.founder-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 24px;
+}
+
+.founder-card h3 {
+  font-size: 1.7rem;
+}
+
+.founder-role {
+  color: var(--burgundy);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 6px 0 14px;
+}
+
+.founder-card p + p {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.about-actions-block p {
+  color: var(--muted);
 }
 
 .about-copy p + p {
@@ -727,6 +830,13 @@ p {
   border-radius: 12px;
   border: 1px solid var(--line);
   background: var(--ivory);
+  color: var(--ink);
+  min-height: 48px;
+}
+
+.book-form input[type="datetime-local"] {
+  color-scheme: light;
+  cursor: pointer;
 }
 
 .site-footer {
@@ -737,7 +847,30 @@ p {
 
 .footer-grid {
   display: grid;
-  gap: 18px;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.footer-brand {
+  display: grid;
+  gap: 12px;
+}
+
+.footer-brand .brand-mark {
+  width: 88px;
+  height: 88px;
+}
+
+.footer-nav {
+  display: grid;
+  gap: 8px;
+}
+
+.footer-nav p,
+.footer-grid > div > p:first-child {
+  color: var(--gold-soft);
+  font-weight: 600;
 }
 
 .footer-grid .brand-name {
@@ -750,7 +883,13 @@ p {
   color: var(--gold);
 }
 
+.footer-grid .brand {
+  display: flex;
+  color: inherit;
+}
+
 .legal {
+  grid-column: 1 / -1;
   font-size: 0.85rem;
   color: rgba(246, 239, 228, 0.5);
 }
@@ -816,8 +955,10 @@ p {
   .category-tabs,
   .brand-blocks,
   .combo-grid,
-  .about-grid,
-  .visit-grid {
+  .founders,
+  .about-cta-row,
+  .visit-grid,
+  .footer-grid {
     grid-template-columns: 1fr;
   }
 
@@ -839,6 +980,15 @@ p {
 
   .hero-content {
     padding-top: 48px;
+  }
+
+  .brand-kicker {
+    letter-spacing: 0.12em;
+    font-size: 0.64rem;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
   }
 
   .hero-meta {
